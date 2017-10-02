@@ -61,7 +61,7 @@ public class ringerMode extends CordovaPlugin {
         int mode = Integer.parseInt(strMode); 
         switch (mode) {
             case 0:
-                audioManager.setRingerMode(RINGER_MODE_SILENT);
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 callbackContext.success("RINGER_MODE_SILENT");
                 break;
             case 1:
@@ -69,7 +69,7 @@ public class ringerMode extends CordovaPlugin {
                 callbackContext.success("RINGER_MODE_VIBRATE");
                 break;
             case 2:
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL));
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 callbackContext.success("RINGER_MODE_NORMAL");
                 break;
         }
