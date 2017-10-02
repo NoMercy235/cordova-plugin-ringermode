@@ -1,0 +1,25 @@
+{
+  "name": "cordova-plugin-ringermode",
+  "version": "0.0.2",
+  "description": "A plugin for getting the ringer mode of a device.",
+  "cordova": {
+    "id": "cordova-plugin-ringermode",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "plugins",
+    "ringermode",
+    "ringer",
+    "mode",
+    "silent",
+    "mode",
+    "silentmode",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Alexandru Florian Barascu",
+  "license": "Apache 2.0"
+}
