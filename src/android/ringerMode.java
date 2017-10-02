@@ -21,7 +21,7 @@ public class ringerMode extends CordovaPlugin {
             this.getRingerMode(callbackContext);
             return true;
         } else if (action.equals("setRingerMode")) {
-            this.setRingerMode(args, callbackContext);
+            // this.setRingerMode(args, callbackContext);
             return true;
         } else if (action.equals("setRingerSilent")) {
             this.setRingerSilent(callbackContext);

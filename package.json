@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ringermode",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A plugin for getting the ringer mode of a device.",
   "cordova": {
     "id": "cordova-plugin-ringermode",
