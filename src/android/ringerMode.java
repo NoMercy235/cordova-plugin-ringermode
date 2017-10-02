@@ -23,6 +23,15 @@ public class ringerMode extends CordovaPlugin {
         } else if (action.equals("setRingerMode")) {
             this.setRingerMode(args, callbackContext);
             return true;
+        } else if (action.equals("setRingerSilent")) {
+            this.setRingerSilent(callbackContext);
+            return true;
+        } else if (action.equals("setRingerVibrate")) {
+            this.setRingerVibrate(callbackContext);
+            return true;
+        } else if (action.equals("setRingerNormal")) {
+            this.setRingerNormal(callbackContext);
+            return true;
         }
         return false;
     }
@@ -65,5 +74,26 @@ public class ringerMode extends CordovaPlugin {
                 break;
         }
         callbackContext.error("NONE");
+    }
+
+    private void setRingerSilent(CallbackContext callbackContext) {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        callbackContext.success("RINGER_MODE_SILENT");
+    }
+
+    private void setRingerVibrate(CallbackContext callbackContext) {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        callbackContext.success("RINGER_MODE_VIBRATE");
+    }
+
+    private void setRingerNormal(CallbackContext callbackContext) {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        callbackContext.success("RINGER_MODE_NORMAL");
     }
 }
