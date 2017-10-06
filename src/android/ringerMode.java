@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import android.content.Context;
 import android.media.AudioManager;
 
@@ -15,13 +17,12 @@ import android.media.AudioManager;
  */
 
 public class ringerMode extends CordovaPlugin {
+    private int[] validModes = new int[]{ AudioManager.RINGER_MODE_SILENT, AudioManager.RINGER_MODE_VIBRATE, AudioManager.RINGER_MODE_NORMAL };
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getRingerMode")) {
             this.getRingerMode(callbackContext);
-            return true;
-        } else if (action.equals("setRingerMode")) {
-            // this.setRingerMode(args, callbackContext);
             return true;
         } else if (action.equals("setRingerSilent")) {
             this.setRingerSilent(callbackContext);
@@ -54,46 +55,31 @@ public class ringerMode extends CordovaPlugin {
         callbackContext.error("NONE");
     }
 
-    private void setRingerMode(String strMode, CallbackContext callbackContext) {
+    private void setRingerMode(CallbackContext callbackContext, int mode, String echoedResponse) {
         Context context = this.cordova.getActivity().getApplicationContext();
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-        int mode = Integer.parseInt(strMode); 
-        switch (mode) {
-            case 0:
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                callbackContext.success("RINGER_MODE_SILENT");
-                break;
-            case 1:
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                callbackContext.success("RINGER_MODE_VIBRATE");
-                break;
-            case 2:
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                callbackContext.success("RINGER_MODE_NORMAL");
-                break;
+        if (this.isValidMode(mode)) {
+            audioManager.setRingerMode(mode);
+            callbackContext.success(echoedResponse);
+        } else {
+            callbackContext.error("NONE");
         }
-        callbackContext.error("NONE");
     }
 
     private void setRingerSilent(CallbackContext callbackContext) {
-        Context context = this.cordova.getActivity().getApplicationContext();
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-        callbackContext.success("RINGER_MODE_SILENT");
+        this.setRingerMode(callbackContext, AudioManager.RINGER_MODE_SILENT, "RINGER_MODE_SILENT");
     }
 
     private void setRingerVibrate(CallbackContext callbackContext) {
-        Context context = this.cordova.getActivity().getApplicationContext();
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-        callbackContext.success("RINGER_MODE_VIBRATE");
+        this.setRingerMode(callbackContext, AudioManager.RINGER_MODE_VIBRATE, "RINGER_MODE_VIBRATE");
     }
 
     private void setRingerNormal(CallbackContext callbackContext) {
-        Context context = this.cordova.getActivity().getApplicationContext();
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-        callbackContext.success("RINGER_MODE_NORMAL");
+        this.setRingerMode(callbackContext, AudioManager.RINGER_MODE_NORMAL, "RINGER_MODE_NORMAL");
+    }
+
+    private boolean isValidMode(final int mode) {     
+        return ArrayUtils.contains(this.validModes, mode);
     }
 }
